@@ -20,5 +20,37 @@ Padrão CRON utilizado: https://docs.aws.amazon.com/eventbridge/latest/userguide
 
 ## Como funciona
 
-### TODO: Detalhar
-EventBridge/API Gateway => SNS => Lambda => EC2/ECS/RDS
+EventBridge/API Gateway => SNS => Lambda => EC2/ECS/RDS/ASG
+
+O EventBridge dispara nos horários definidos pelas CRONs e publica em um dos tópicos SNS (`start-topic` ou `stop-topic`). Cada recurso habilitado possui um par de Lambdas inscritas nesses tópicos, que executam as ações correspondentes nos recursos que possuem a tag configurada.
+
+## Uso manual via API Gateway
+
+Quando `manual_endpoint = true`, um API Gateway é criado com dois endpoints que permitem acionar o start/stop fora do horário agendado.
+
+### Obtendo a URL e a API Key
+
+**URL base** (via console ou CLI):
+```bash
+aws apigateway get-stages --rest-api-id <api-id> --query 'item[0].{stage:stageName}'
+# URL: https://<api-id>.execute-api.<region>.amazonaws.com/dev
+```
+
+**API Key** (via CLI):
+```bash
+aws apigateway get-api-keys --include-values --query 'items[?name==`start-stop-key`].value' --output text
+```
+
+### Chamando os endpoints
+
+**Start:**
+```bash
+curl -X POST https://<api-id>.execute-api.<region>.amazonaws.com/dev/start \
+  -H "x-api-key: <api-key>"
+```
+
+**Stop:**
+```bash
+curl -X POST https://<api-id>.execute-api.<region>.amazonaws.com/dev/stop \
+  -H "x-api-key: <api-key>"
+```

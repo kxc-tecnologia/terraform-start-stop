@@ -52,7 +52,7 @@ resource "aws_lambda_function" "start_rds_lambda_function" {
   source_code_hash = data.archive_file.start_rds_lambda_zip_file[0].output_base64sha256
   handler          = "app.lambda_handler"
   role             = aws_iam_role.rds_lambda_iam_role[0].arn
-  runtime          = "python3.8"
+  runtime          = "python3.12"
   environment {
     variables = {
       "TAG_KEY"   = var.tag.key
@@ -97,7 +97,7 @@ resource "aws_lambda_function" "stop_rds_lambda_function" {
   source_code_hash = data.archive_file.stop_rds_lambda_zip_file[0].output_base64sha256
   handler          = "app.lambda_handler"
   role             = aws_iam_role.rds_lambda_iam_role[0].arn
-  runtime          = "python3.8"
+  runtime          = "python3.12"
   environment {
     variables = {
       "TAG_KEY"   = var.tag.key
@@ -172,7 +172,7 @@ resource "aws_lambda_function" "start_ec2_lambda_function" {
   source_code_hash = data.archive_file.start_ec2_lambda_zip_file[0].output_base64sha256
   handler          = "app.lambda_handler"
   role             = aws_iam_role.ec2_lambda_iam_role[0].arn
-  runtime          = "python3.8"
+  runtime          = "python3.12"
   environment {
     variables = {
       "TAG_KEY"   = var.tag.key
@@ -217,7 +217,7 @@ resource "aws_lambda_function" "stop_ec2_lambda_function" {
   source_code_hash = data.archive_file.stop_ec2_lambda_zip_file[0].output_base64sha256
   handler          = "app.lambda_handler"
   role             = aws_iam_role.ec2_lambda_iam_role[0].arn
-  runtime          = "python3.8"
+  runtime          = "python3.12"
   environment {
     variables = {
       "TAG_KEY"   = var.tag.key
@@ -293,7 +293,7 @@ resource "aws_lambda_function" "start_ecs_lambda_function" {
   source_code_hash = data.archive_file.start_ecs_lambda_zip_file[0].output_base64sha256
   handler          = "app.lambda_handler"
   role             = aws_iam_role.ecs_lambda_iam_role[0].arn
-  runtime          = "python3.8"
+  runtime          = "python3.12"
   timeout          = 600
   environment {
     variables = {
@@ -338,7 +338,7 @@ resource "aws_lambda_function" "stop_ecs_lambda_function" {
   source_code_hash = data.archive_file.stop_ecs_lambda_zip_file[0].output_base64sha256
   handler          = "app.lambda_handler"
   role             = aws_iam_role.ecs_lambda_iam_role[0].arn
-  runtime          = "python3.8"
+  runtime          = "python3.12"
   timeout          = 600
   environment {
     variables = {
@@ -410,7 +410,7 @@ resource "aws_lambda_function" "start_asg_lambda_function" {
   source_code_hash = data.archive_file.start_asg_lambda_zip_file[0].output_base64sha256
   handler          = "app.lambda_handler"
   role             = aws_iam_role.asg_lambda_iam_role[0].arn
-  runtime          = "python3.8"
+  runtime          = "python3.12"
   environment {
     variables = {
       "TAG_KEY"   = var.tag.key
@@ -454,7 +454,7 @@ resource "aws_lambda_function" "stop_asg_lambda_function" {
   source_code_hash = data.archive_file.stop_asg_lambda_zip_file[0].output_base64sha256
   handler          = "app.lambda_handler"
   role             = aws_iam_role.asg_lambda_iam_role[0].arn
-  runtime          = "python3.8"
+  runtime          = "python3.12"
   environment {
     variables = {
       "TAG_KEY"   = var.tag.key
